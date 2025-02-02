@@ -6,7 +6,7 @@ import { Book, Users, Trophy } from "lucide-react"
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-20 bg-zinc-900 h-[calc(100vh-10rem)]">
+    <section id="about" className="py-20 bg-zinc-900 ">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -82,7 +82,7 @@ export default function StudyMaterialPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-zinc-900 pt-20">
       <Navbar />
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-16 py-12">
         <h1 className="text-4xl font-bold text-white mb-8 text-center">Study Materials</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {materials.map((item, index) => (
