@@ -1,12 +1,18 @@
+import { HeroSection } from "../../components/HeroSection"
+import { AboutSection } from "../../components/AboutSection"
+import { Footer } from "../../components/Footer"
+import { Navbar } from "../../components/Navbar"
 
-import Hero from '../../components/Home/Hero'
 
-const Home = () => {
+
+export default function HomePage() {
   return (
-    <div>
-        <Hero/>
+    <div className="min-h-screen bg-black">
+      <Navbar />
+      <HeroSection />
+      <AboutSection />
+      <Footer />
     </div>
   )
 }
 
-export default Home
