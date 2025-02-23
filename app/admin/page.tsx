@@ -215,7 +215,7 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8 mt-20">
       <Toaster position="top-center" />
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[70vw] mx-auto">
         <div className="bg-zinc-900 rounded-lg shadow-lg p-8 mb-8">
           <h1 className="text-3xl font-bold text-white mb-6 text-center">Admin Dashboard</h1>
           <div className="flex justify-center space-x-4 mb-8">

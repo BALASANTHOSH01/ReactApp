@@ -149,7 +149,7 @@ export default function MaterialsPage() {
 
   return (
     <div className="mt-20 bg-black py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[70vw] mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-12 text-center">Study Materials</h1>
 
         <div className="mb-8 flex flex-col md:flex-row gap-4">
@@ -288,7 +288,7 @@ export default function MaterialsPage() {
 
       {viewingDocument && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-zinc-900 rounded-lg w-full max-w-[70vw] h-[90vh] flex flex-col">
+          <div className="bg-zinc-900 rounded-lg w-full max-w-[50vw] h-[90vh] flex flex-col">
             <div className="flex justify-between items-center p-4 border-b border-zinc-700">
               <h3 className="text-xl font-semibold text-white">{viewingDocument.name}</h3>
               <button
