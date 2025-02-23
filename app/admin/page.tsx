@@ -58,7 +58,10 @@ export default function AdminPage() {
   }, [supabase])
 
   useEffect(() => {
-    if (!authLoading && user && user.user_metadata?.role !== "admin") {
+    if (!authLoading && !user) {
+      console.log("No user, redirecting to auth page")
+      router.push("/auth")
+    } else if (!authLoading && user && user.user_metadata?.role !== "admin") {
       console.log("User is not admin, redirecting to materials")
       router.push("/materials")
     } else if (user && user.user_metadata?.role === "admin") {
@@ -214,8 +217,8 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8 mt-20">
-      <Toaster position="top-center" />
-      <div className="max-w-[70vw] mx-auto">
+      <Toaster position="bottom-right" />
+      <div className="max-w-6xl mx-auto">
         <div className="bg-zinc-900 rounded-lg shadow-lg p-8 mb-8">
           <h1 className="text-3xl font-bold text-white mb-6 text-center">Admin Dashboard</h1>
           <div className="flex justify-center space-x-4 mb-8">

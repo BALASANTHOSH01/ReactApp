@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -26,8 +27,15 @@ export function Navbar() {
 
   const handleLogout = async () => {
     await signOut()
+    setIsMenuOpen(false)
     router.push("/auth")
   }
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/auth")
+    }
+  }, [user, router])
 
   const NavLink = ({
     href,
@@ -143,7 +151,7 @@ export function Navbar() {
                   onClick={handleLogout}
                   className="flex items-center w-full text-left text-zinc-300 hover:bg-zinc-800 hover:text-white px-4 py-3 rounded-md text-base font-medium transition-all duration-300 ease-in-out transform hover:scale-105"
                 >
-                  <LogOut className="h-6 h-6 mr-3" />
+                  <LogOut className="h-6 w-6 mr-3" />
                   Logout
                 </button>
               ) : (

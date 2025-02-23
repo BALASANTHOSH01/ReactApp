@@ -35,8 +35,8 @@ export default function AuthPage() {
   }, [user, router])
 
   useEffect(() => {
-    const error = searchParams.get("error")
-    const errorDescription = searchParams.get("error_description")
+    const error = searchParams?.get("error")
+    const errorDescription = searchParams?.get("error_description")
     if (error === "access_denied" && errorDescription) {
       setError(decodeURIComponent(errorDescription))
     }
@@ -107,7 +107,7 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="min-h-screen mt-10 bg-black flex items-center justify-center">
       <div className="bg-zinc-900 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-3xl font-bold text-white mb-6 text-center">
           {isLogin ? "Sign in to your account" : "Create a new account"}
