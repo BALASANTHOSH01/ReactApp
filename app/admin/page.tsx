@@ -224,21 +224,21 @@ export default function AdminPage() {
           <div className="flex justify-center space-x-4 mb-8">
             <button
               onClick={() => setActiveTab("upload")}
-              className={`flex items-center gap-2 px-6 py-3 rounded-md transition-all duration-300 ${
+              className={`flex items-center gap-1 md:gap-2 px-3 md:px-6 py-2 md:py-3 rounded-md transition-all duration-300 ${
                 activeTab === "upload" ? "bg-white text-black" : "bg-zinc-800 text-white hover:bg-zinc-700"
               }`}
             >
-              <Upload className="w-5 h-5" />
-              Upload Modules
+              <Upload className="md:w-5 md:h-5 w-4 h-4" />
+              Upload&#160;Modules
             </button>
             <button
               onClick={() => setActiveTab("manage")}
-              className={`flex items-center gap-2 px-6 py-3 rounded-md transition-all duration-300 ${
+              className={`flex items-center gap-1 md:gap-2 px-3 md:px-6 py-3 rounded-md transition-all duration-300 ${
                 activeTab === "manage" ? "bg-white text-black" : "bg-zinc-800 text-white hover:bg-zinc-700"
               }`}
             >
-              <List className="w-5 h-5" />
-              Manage Modules
+              <List className="md:w-5 md:h-5 w-4 h-4" />
+              Manage&#160;Modules
             </button>
           </div>
 
@@ -320,11 +320,11 @@ export default function AdminPage() {
                 <button
                   type="button"
                   onClick={addModule}
-                  className="flex items-center gap-2 px-4 py-2 bg-zinc-700 text-white rounded-md hover:bg-zinc-600 transition-all duration-300 hover:scale-105"
+                  className="flex items-center gap-1 md:gap-2 px-4 py-2 bg-zinc-700 text-white rounded-md hover:bg-zinc-600 transition-all duration-300 hover:scale-105"
                   disabled={uploading}
                 >
-                  <Plus className="w-5 h-5" />
-                  Add Another Module
+                  <Plus className="md:w-5 md:h-5 w-4 h-4" />
+                  Add Module
                 </button>
 
                 <button
