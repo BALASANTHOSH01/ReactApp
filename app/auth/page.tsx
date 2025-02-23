@@ -62,7 +62,7 @@ export default function AuthPage() {
 
         console.log("Sign in data:", data)
       } else {
-        const { data, error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {

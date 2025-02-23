@@ -33,7 +33,7 @@ export function AboutSection() {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">About StudyHub</h2>
           <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-            We're dedicated to making learning accessible, engaging, and effective for students worldwide.
+            We&apos;re dedicated to making learning accessible, engaging, and effective for students worldwide.
           </p>
         </motion.div>
 

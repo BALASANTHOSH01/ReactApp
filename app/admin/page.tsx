@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { toast, Toaster } from "sonner"
@@ -46,16 +46,7 @@ export default function AdminPage() {
   const supabase = createClientComponentClient()
   const [selectedFiles, setSelectedFiles] = useState<{ [key: string]: string }>({})
 
-  useEffect(() => {
-    if (!authLoading && user && user.user_metadata?.role !== "admin") {
-      console.log("User is not admin, redirecting to materials")
-      router.push("/materials")
-    } else if (user && user.user_metadata?.role === "admin") {
-      fetchStudyMaterials()
-    }
-  }, [user, authLoading, router])
-
-  const fetchStudyMaterials = async () => {
+  const fetchStudyMaterials = useCallback(async () => {
     const { data, error } = await supabase.from("study_materials").select("*").order("created_at", { ascending: false })
 
     if (error) {
@@ -64,7 +55,16 @@ export default function AdminPage() {
     } else {
       setStudyMaterials(data)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    if (!authLoading && user && user.user_metadata?.role !== "admin") {
+      console.log("User is not admin, redirecting to materials")
+      router.push("/materials")
+    } else if (user && user.user_metadata?.role === "admin") {
+      fetchStudyMaterials()
+    }
+  }, [user, authLoading, router, fetchStudyMaterials])
 
   const addModule = () => {
     setModules((prev) => [...prev, emptyModule()])
@@ -74,7 +74,7 @@ export default function AdminPage() {
     setModules((prev) => prev.filter((module) => module.id !== id))
   }
 
-  const updateModule = (id: string, field: keyof ModuleInput, value: any) => {
+  const updateModule = (id: string, field: keyof ModuleInput, value: string | File | null) => {
     setModules((prev) => prev.map((module) => (module.id === id ? { ...module, [field]: value } : module)))
   }
 
@@ -102,23 +102,21 @@ export default function AdminPage() {
     const toastId = toast.loading("Uploading modules...")
 
     try {
-      for (const module of modules) {
-        const { file } = module
+      for (const moduleItem of modules) {
+        const { file } = moduleItem
         if (!file) continue
 
-        toast.loading(`Uploading ${module.documentTitle}...`, { id: toastId })
+        toast.loading(`Uploading ${moduleItem.documentTitle}...`, { id: toastId })
 
         const fileExt = file.name.split(".").pop()
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
         const filePath = `${user.id}/${fileName}`
 
-        const { data: fileData, error: uploadError } = await supabase.storage
-          .from("study-materials")
-          .upload(filePath, file, {
-            cacheControl: "3600",
-            upsert: false,
-            contentType: file.type,
-          })
+        const { error: uploadError } = await supabase.storage.from("study-materials").upload(filePath, file, {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: file.type,
+        })
 
         if (uploadError) {
           throw new Error(`Failed to upload file: ${uploadError.message}`)
@@ -133,9 +131,9 @@ export default function AdminPage() {
         const fileUrl = publicUrlData.publicUrl
 
         const { error: insertError } = await supabase.from("study_materials").insert({
-          module_name: module.moduleName,
-          document_title: module.documentTitle,
-          description: module.description,
+          module_name: moduleItem.moduleName,
+          document_title: moduleItem.documentTitle,
+          description: moduleItem.description,
           file_url: fileUrl,
           file_path: filePath,
           created_by: user.id,
@@ -216,7 +214,7 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8 mt-20">
-      <Toaster position="bottom-right" />
+      <Toaster position="top-center" />
       <div className="max-w-6xl mx-auto">
         <div className="bg-zinc-900 rounded-lg shadow-lg p-8 mb-8">
           <h1 className="text-3xl font-bold text-white mb-6 text-center">Admin Dashboard</h1>

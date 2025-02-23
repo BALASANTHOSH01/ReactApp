@@ -30,7 +30,7 @@ export default function MaterialsPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const filterRef = useRef<HTMLDivElement>(null)
   const supabase = createClientComponentClient()
-  const { user, loading: authLoading } = useAuth()
+
 
   useEffect(() => {
     const fetchMaterials = async () => {
